@@ -23,15 +23,14 @@ public class ParkourController : MonoBehaviour
         if(Input.GetButton("Jump") && !inAction)
         {
             var hitData = environmentScanner.ObstacleCheck();
-            if (hitData.forwardHitFound)
+            if (hitData.forwardHitFound) // 만약 발견된게 있다면
             {
                 foreach(ParkourAction action in parkourActions)
                 {
-                    if(action.CheckIfPossible(hitData, gameObject.transform))
+                    if(action.CheckIfPossible(hitData, gameObject.transform)) // 가능한 범위안에 있나 체크
                     {
                         StartCoroutine(DoParkourAction(action));
-                        Debug.Log("Found Parkour" + action.AnimName);
-                        break;
+                        break; 
                     }
                 }
 
@@ -52,8 +51,19 @@ public class ParkourController : MonoBehaviour
         {
             Debug.LogError("애니메이션이 존재하지 않는다.");
         }
-        yield return new WaitForSeconds(animState.length);
-        playerController.SetControl(true);
+
+        float timer = 0f;
+        while(timer <= animState.length)
+        { // 애니메이션동안
+            timer += Time.deltaTime;
+            if(action.RotateToObstacle)
+            {
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, action.TargetRotation, playerController.RotationSpeed * Time.deltaTime);
+            }
+            yield return null;
+        }
+
+        playerController.SetControl(true); // 중력 및 collision활성화
         inAction = false;
     }
 }
