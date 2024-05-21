@@ -59,11 +59,23 @@ public class ParkourController : MonoBehaviour
             if(action.RotateToObstacle)
             {
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, action.TargetRotation, playerController.RotationSpeed * Time.deltaTime);
-            }
+            }//애니메이션 진행동안 업데이트
+
+            if (action.EnableTargetMatching)
+                MatchTarget(action);
             yield return null;
         }
 
         playerController.SetControl(true); // 중력 및 collision활성화
         inAction = false;
+    }
+
+    void MatchTarget(ParkourAction action)
+    {
+        if (animator.isMatchingTarget) return;
+
+        animator.MatchTarget(action.MatchPos, transform.rotation, action.MatchBodyPart,
+            new MatchTargetWeightMask(new Vector3(0, 1, 0), 0),// vector의 xyz중 1인것만 match시킨다. rotation은 match안시킬거니 0
+            action.MatchStartTime, action.MatchTargetTime);
     }
 }
