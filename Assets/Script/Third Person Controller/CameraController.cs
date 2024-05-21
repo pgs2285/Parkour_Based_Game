@@ -16,6 +16,7 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] bool invertX;
     [SerializeField] bool invertY;
+
      
     float rotationX;
     float rotationY;
