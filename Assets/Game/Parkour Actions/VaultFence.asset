@@ -19,7 +19,7 @@ MonoBehaviour:
   rotateToObstacle: 1
   postActionDelay: 0
   enableTargetMatching: 1
-  matchBodyPart: 2
+  matchBodyPart: 4
   matchStartTime: 0.12
   matchTargetTime: 0.33
   matchPosWeight: {x: 0, y: 1, z: 1}

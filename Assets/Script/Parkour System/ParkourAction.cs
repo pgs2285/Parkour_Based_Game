@@ -17,15 +17,16 @@ public class ParkourAction : ScriptableObject
 
     [Header("Target Matching")]
     [SerializeField] bool enableTargetMatching = true;
-    [SerializeField] AvatarTarget matchBodyPart; // AvatarTarget은 Root, Body, Left Foot, Right Foot, Left Hand, Right Hand로 구성된 enum
+    [SerializeField] protected AvatarTarget matchBodyPart; // AvatarTarget은 Root, Body, Left Foot, Right Foot, Left Hand, Right Hand로 구성된 enum
     [SerializeField] float matchStartTime; // 점프 등 시작하는 시간
     [SerializeField] float matchTargetTime; // 해당 부위가 닿길 원하는 시간
     [SerializeField] Vector3 matchPosWeight = new Vector3(0, 1, 0);
 
     public Quaternion TargetRotation { get; set; } // inspector에서 안보이게
     public Vector3 MatchPos { get; set; } // 타겟 위치 지정
+    public bool Mirror { get; set; }
 
-    public bool CheckIfPossible(ObstacleHitData hitData, Transform player)
+    public virtual bool CheckIfPossible(ObstacleHitData hitData, Transform player)
     {
         if(!string.IsNullOrEmpty(obstacleTag) && hitData.forwardHit.transform.tag != obstacleTag)
         { // 태그가 있는데, 장애물 태그와 동일하지 않다면

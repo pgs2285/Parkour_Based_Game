@@ -44,6 +44,8 @@ public class ParkourController : MonoBehaviour
 
         playerController.SetControl(false); //중력 및 콜리더 떄문에 계단을 올라가지 못하므로, 일단 이것을 비활성화 해주는 코드
 
+
+        animator.SetBool("mirrorAction", action.Mirror);
         animator.CrossFade(action.AnimName, 0.2f); // cross fade는 애니메이션이 급격하게 바뀌면 어색하지 않게 블렌딩 함수를 통해 자연스래 만들어줌, 두번쨰 인수는 fade out 시간
         yield return null; //  한 프레임을 넘김으로써 전환
 
