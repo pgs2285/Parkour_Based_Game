@@ -11,6 +11,7 @@ public class ParkourController : MonoBehaviour
     EnvironmentScanner environmentScanner;
     Animator animator;
     PlayerController playerController;
+
     private void Awake()
     {
         environmentScanner = GetComponent<EnvironmentScanner>();
@@ -63,8 +64,14 @@ public class ParkourController : MonoBehaviour
 
             if (action.EnableTargetMatching)
                 MatchTarget(action);
+
+            if(animator.IsInTransition(0) && timer> 1.0f) // Vault같은것은 뛰어넘고 공중에 착지하니 전환중일때 중력을 돌려놓기 위함. 시작 전환때는 break하면 안되니 0.5같은 작은값을 조건으로
+                break;
+
             yield return null;
         }
+
+        yield return new WaitForSeconds(action.PostActionDelay); // 애니메이션이 2개가 연결된 경우 컨트롤러 넘기기전에 더 딜레이
 
         playerController.SetControl(true); // 중력 및 collision활성화
         inAction = false;
@@ -75,7 +82,7 @@ public class ParkourController : MonoBehaviour
         if (animator.isMatchingTarget) return;
 
         animator.MatchTarget(action.MatchPos, transform.rotation, action.MatchBodyPart,
-            new MatchTargetWeightMask(new Vector3(0, 1, 0), 0),// vector의 xyz중 1인것만 match시킨다. rotation은 match안시킬거니 0
+            new MatchTargetWeightMask(action.MatchPosWeight, 0),// vector의 xyz중 1인것만 위치에 match시킨다. rotation은 match안시킬거니 0
             action.MatchStartTime, action.MatchTargetTime);
     }
 }
