@@ -7,7 +7,10 @@ public class EnvironmentScanner : MonoBehaviour
     [SerializeField] Vector3 forwardRayOffset = new Vector3(0, 0.25f, 0);
     [SerializeField] float forwardRayLength = 0.8f;
     [SerializeField] float heightRayLength = 5f;
+    [SerializeField] float ledgeRayLength = 10f;
     [SerializeField] LayerMask obstacleLayer;
+    [SerializeField] float ledgeHeightThreshold = 0.75f;
+
     public ObstacleHitData ObstacleCheck()
     {
         ObstacleHitData hitData = new ObstacleHitData();
@@ -26,7 +29,29 @@ public class EnvironmentScanner : MonoBehaviour
         }
         return hitData;
     }
+
+
+    public bool LedgeCheck(Vector3 moveDir)
+    {
+        if(moveDir == Vector3.zero) return false;
+
+        float originOffset = 0.5f;
+        var origin = transform.position + moveDir * originOffset + Vector3.up;
+
+        if(Physics.Raycast(origin, Vector3.down, out RaycastHit hit, ledgeRayLength, obstacleLayer))
+        {
+            float height = transform.position.y - hit.point.y; //  땅까지의 거리
+            if(height > ledgeHeightThreshold) // 임계값을 넘으면 true
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
+
+
 
 public struct ObstacleHitData
 {

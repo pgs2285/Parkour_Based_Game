@@ -12,9 +12,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float groundCheckRadius = 0.2f;
     [SerializeField] Vector3 groundCheckOffset;
     [SerializeField] LayerMask groundLayer;
-
+    
     bool isGrounded;
     bool hasControl = true;
+
+    public bool IsOnLedge { get; set; }
 
     float ySpeed;
     Quaternion targetRotation;
@@ -22,12 +24,13 @@ public class PlayerController : MonoBehaviour
     CameraController cameraController;
     Animator animator;
     CharacterController characterController;
-
+    EnvironmentScanner environmentScanner;
     private void Awake()
     {
         cameraController = Camera.main.GetComponent<CameraController>();
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
+        environmentScanner = GetComponent<EnvironmentScanner>();
     }
 
 
@@ -42,17 +45,28 @@ public class PlayerController : MonoBehaviour
 
         var moveDir = cameraController.PlanarRotation * moveInput;
         if (!hasControl) return;
-        GroundCheck();
 
+        var velocity = Vector3.zero;
+
+        GroundCheck();
+        animator.SetBool("IsGrounded", isGrounded);
         if(isGrounded)
         {
+            velocity = moveDir * moveSpeed;
             ySpeed = -0.5f;
+            IsOnLedge = environmentScanner.LedgeCheck(moveDir);
+            if(IsOnLedge)
+            {
+                Debug.Log("on ledge");
+            }
         }
         else
         {
             ySpeed += Physics.gravity.y * Time.deltaTime;
+
+            velocity = transform.forward * moveSpeed / 2;
         }
-        var velocity = moveDir * moveSpeed;
+
         velocity.y = ySpeed;
         characterController.Move(velocity* Time.deltaTime);
 

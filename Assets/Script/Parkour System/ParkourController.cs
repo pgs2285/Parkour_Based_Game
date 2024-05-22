@@ -6,6 +6,7 @@ using UnityEngine;
 public class ParkourController : MonoBehaviour
 {
     [SerializeField] List<ParkourAction> parkourActions;
+    [SerializeField] ParkourAction jumpDownAction;
 
     bool inAction;
     EnvironmentScanner environmentScanner;
@@ -36,6 +37,12 @@ public class ParkourController : MonoBehaviour
                 }
 
             }
+        }
+
+        if(playerController.IsOnLedge && !inAction)
+        {
+            playerController.IsOnLedge = false;
+            StartCoroutine(DoParkourAction(jumpDownAction));
         }
     }
     IEnumerator DoParkourAction(ParkourAction action)
