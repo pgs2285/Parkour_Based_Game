@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     bool hasControl = true;
 
     public bool IsOnLedge { get; set; }
+    public LedgeData LedgeData { get; set; }
 
     float ySpeed;
     Quaternion targetRotation;
@@ -54,10 +55,10 @@ public class PlayerController : MonoBehaviour
         {
             velocity = moveDir * moveSpeed;
             ySpeed = -0.5f;
-            IsOnLedge = environmentScanner.LedgeCheck(moveDir);
+            IsOnLedge = environmentScanner.LedgeCheck(moveDir, out LedgeData ledgeData);
             if(IsOnLedge)
             {
-                Debug.Log("on ledge");
+                LedgeData = ledgeData;
             }
         }
         else
