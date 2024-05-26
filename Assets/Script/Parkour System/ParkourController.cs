@@ -40,7 +40,7 @@ public class ParkourController : MonoBehaviour
             }
         }
 
-        if(playerController.IsOnLedge && !inAction)
+        if(playerController.IsOnLedge && !inAction && !hitData.forwardHitFound)
         {
             if(playerController.LedgeData.angle <= 50)
             {

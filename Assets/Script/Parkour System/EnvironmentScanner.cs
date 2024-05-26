@@ -42,16 +42,19 @@ public class EnvironmentScanner : MonoBehaviour
 
         if(Physics.Raycast(origin, Vector3.down, out RaycastHit hit, ledgeRayLength, obstacleLayer))
         {
+            
             var surfaceRayOrigin = transform.position + moveDir - new Vector3(0, 0.1f, 0);
-            Physics.Raycast(surfaceRayOrigin, -moveDir, out RaycastHit surfaceHit, 2, obstacleLayer) ;
-
-            float height = transform.position.y - hit.point.y; //  땅까지의 거리
-            if(height > ledgeHeightThreshold) // 임계값을 넘으면 true
+            if (Physics.Raycast(surfaceRayOrigin, -moveDir, out RaycastHit surfaceHit, 2, obstacleLayer))
             {
-                ledgeData.angle = Vector3.Angle(transform.forward, surfaceHit.normal); // 표면의 normal과 플레이어의 forwawrd각도 측정
-                ledgeData.height = height;
-                ledgeData.surfaceHit = surfaceHit;  
-                return true;
+
+                float height = transform.position.y - hit.point.y; //  땅까지의 거리
+                if (height > ledgeHeightThreshold) // 임계값을 넘으면 true
+                {
+                    ledgeData.angle = Vector3.Angle(transform.forward, surfaceHit.normal); // 표면의 normal과 플레이어의 forwawrd각도 측정
+                    ledgeData.height = height;
+                    ledgeData.surfaceHit = surfaceHit;
+                    return true;
+                }
             }
         }
 
