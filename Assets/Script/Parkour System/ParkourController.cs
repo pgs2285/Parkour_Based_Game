@@ -40,9 +40,12 @@ public class ParkourController : MonoBehaviour
             }
         }
 
-        if(playerController.IsOnLedge && !inAction && !hitData.forwardHitFound && Input.GetButton("Jump"))
+        if(playerController.IsOnLedge && !inAction && !hitData.forwardHitFound)
         {
-            if(playerController.LedgeData.angle <= 50)
+            bool shouldJump = true;
+            if (playerController.LedgeData.height > 1 && !Input.GetButton("Jump"))
+                shouldJump = false;
+            if(shouldJump && playerController.LedgeData.angle <= 50)
             {
                 playerController.IsOnLedge = false;
                 StartCoroutine(DoParkourAction(jumpDownAction));
