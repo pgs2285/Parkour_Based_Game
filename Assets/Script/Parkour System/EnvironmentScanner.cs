@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnvironmentScanner : MonoBehaviour
@@ -40,20 +41,27 @@ public class EnvironmentScanner : MonoBehaviour
         float originOffset = 0.5f;
         var origin = transform.position + moveDir * originOffset + Vector3.up;
 
-        if(Physics.Raycast(origin, Vector3.down, out RaycastHit hit, ledgeRayLength, obstacleLayer))
+        if(PhysicsUtil.ThreeRaycasts(origin, Vector3.down, 0.25f, transform,
+            out List<RaycastHit> hits, ledgeRayLength, obstacleLayer, true))
         {
-            
-            var surfaceRayOrigin = transform.position + moveDir - new Vector3(0, 0.1f, 0);
-            if (Physics.Raycast(surfaceRayOrigin, -moveDir, out RaycastHit surfaceHit, 2, obstacleLayer))
+            List<RaycastHit> validHits = hits.Where(h => transform.position.y - h.point.y > ledgeHeightThreshold).ToList(); // 리스트에 있는것들을 대입하며 조건에 맞으면 선택
+
+            if (validHits.Count > 0)
             {
 
-                float height = transform.position.y - hit.point.y; //  땅까지의 거리
-                if (height > ledgeHeightThreshold) // 임계값을 넘으면 true
+                Vector3 surfaceRayOrigin = validHits[0].point;
+                surfaceRayOrigin.y = transform.position.y - 0.1f;
+                if (Physics.Raycast(surfaceRayOrigin, transform.position - surfaceRayOrigin, out RaycastHit surfaceHit, 2, obstacleLayer))
                 {
-                    ledgeData.angle = Vector3.Angle(transform.forward, surfaceHit.normal); // 표면의 normal과 플레이어의 forwawrd각도 측정
+                    Debug.DrawLine(surfaceRayOrigin, transform.position, Color.cyan);
+                    // player 이동방향으로 앞으로 가서 player위치로
+                    float height = transform.position.y - validHits[0].point.y; //  땅까지의 거리
+                    ledgeData.angle = 
+                        Vector3.Angle(transform.forward, surfaceHit.normal); // 표면의 normal과 플레이어의 forwawrd각도 측정
                     ledgeData.height = height;
                     ledgeData.surfaceHit = surfaceHit;
                     return true;
+                    
                 }
             }
         }
