@@ -68,6 +68,8 @@ public class EnvironmentScanner : MonoBehaviour
 
         return false;
     }
+    
+    
 }
 
 
