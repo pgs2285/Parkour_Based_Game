@@ -10,6 +10,8 @@ public class EnvironmentScanner : MonoBehaviour
     [SerializeField] float heightRayLength = 5f;
     [SerializeField] float ledgeRayLength = 10f;
     [SerializeField] LayerMask obstacleLayer;
+    [SerializeField] LayerMask climbLedgeLayer;
+    [SerializeField] float climbLedgeRayLength = 1.5f;
     [SerializeField] float ledgeHeightThreshold = 0.75f;
 
     public ObstacleHitData ObstacleCheck()
@@ -31,7 +33,27 @@ public class EnvironmentScanner : MonoBehaviour
         return hitData;
     }
 
+    public bool ClimbLedgeCheck(Vector3 dir, out RaycastHit ledgeHit)
+    {
+        ledgeHit = new RaycastHit();
+        if (dir == Vector3.zero)
+            return false;
 
+        Vector3 origin = transform.position + Vector3.up * 1.5f;
+        Vector3 offset = new Vector3(0, 0.18f, 0);
+
+        for(int i = 0; i < 10; i++) // 어느 높이까지 탐색할지. 단위는 offset (블럭크기가 offset보다 작으면 곤란할지도?)
+        {
+            Debug.DrawRay(origin + offset * i, dir);
+            if (Physics.Raycast(origin + offset * i, dir, out RaycastHit hit, climbLedgeRayLength, climbLedgeLayer)) // ledge를 순차적으로 점점 높혀가며 가장 가까운 climbLedge발견
+            {
+                ledgeHit = hit;
+                return true;
+            }
+
+        }
+        return false;
+    }
     public bool LedgeCheck(Vector3 moveDir, out LedgeData ledgeData)
     {
         ledgeData = new LedgeData();
