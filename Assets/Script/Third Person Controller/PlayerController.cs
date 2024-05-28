@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     bool hasControl = true;
     
     public bool InAction { get; private set; } 
+    public bool IsHanging { get; set; }
 
     Vector3 desiredMoveDir;
     Vector3 moveDir;
@@ -53,6 +54,8 @@ public class PlayerController : MonoBehaviour
         desiredMoveDir = cameraController.PlanarRotation * moveInput;
         moveDir = desiredMoveDir;   
         if (!hasControl) return;
+
+        if (IsHanging) return;
 
         velocity = Vector3.zero;
 
