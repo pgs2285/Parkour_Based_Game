@@ -37,6 +37,24 @@ public class ClimbController : MonoBehaviour
             float v= Mathf.Round(Input.GetAxisRaw("Vertical"));
 
             Vector2 inputDir = new Vector2(h,v);
+
+            if(playerController.InAction || inputDir == Vector2.zero) return;
+
+            var neighbour = currentPoint.GetNeighbour(inputDir);
+            if(neighbour == null) return;
+            
+            if(neighbour.connectionType == ConnectionType.Jump && Input.GetButton("Jump"))  // 다른곳으로 이동가능한 블력일떄
+            {
+                currentPoint = neighbour.point;
+                if(neighbour.direction.y == 1)
+                    StartCoroutine(JumpToLedge("HangHopUp", currentPoint.transform, 0.35f, 0.65f));
+                else if(neighbour.direction.y == -1)
+                    StartCoroutine(JumpToLedge("HangHopDown", currentPoint.transform, 0.31f, 0.65f));
+                else if(neighbour.direction.x == 1)
+                    StartCoroutine(JumpToLedge("HangHopRight", currentPoint.transform, 0.20f, 0.50f));
+                else if(neighbour.direction.x == -1)
+                    StartCoroutine(JumpToLedge("HangHopLeft", currentPoint.transform, 0.20f, 0.50f));
+            }
         }
     }
 

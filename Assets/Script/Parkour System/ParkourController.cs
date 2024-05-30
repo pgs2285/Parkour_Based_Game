@@ -22,14 +22,14 @@ public class ParkourController : MonoBehaviour
     private void Update()
     {
         var hitData = environmentScanner.ObstacleCheck();
-        if (Input.GetButton("Jump") && !playerController.InAction)
+        if (Input.GetButton("Jump") && !playerController.InAction && !playerController.IsHanging)
         {
             
-            if (hitData.forwardHitFound) // ¸¸¾à ¹ß°ßµÈ°Ô ÀÖ´Ù¸é
+            if (hitData.forwardHitFound) // ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ßµÈ°ï¿½ ï¿½Ö´Ù¸ï¿½
             {
                 foreach(ParkourAction action in parkourActions)
                 {
-                    if(action.CheckIfPossible(hitData, gameObject.transform)) // °¡´ÉÇÑ ¹üÀ§¾È¿¡ ÀÖ³ª Ã¼Å©
+                    if(action.CheckIfPossible(hitData, gameObject.transform)) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½È¿ï¿½ ï¿½Ö³ï¿½ Ã¼Å©
                     {
                         StartCoroutine(DoParkourAction(action));
                         break; 
@@ -54,7 +54,7 @@ public class ParkourController : MonoBehaviour
     }
     IEnumerator DoParkourAction(ParkourAction action)
     {
-        playerController.SetControl(false); //Áß·Â ¹× ÄÝ¸®´õ ‹š¹®¿¡ °è´ÜÀ» ¿Ã¶ó°¡Áö ¸øÇÏ¹Ç·Î, ÀÏ´Ü ÀÌ°ÍÀ» ºñÈ°¼ºÈ­ ÇØÁÖ´Â ÄÚµå
+        playerController.SetControl(false); //ï¿½ß·ï¿½ ï¿½ï¿½ ï¿½Ý¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¹Ç·ï¿½, ï¿½Ï´ï¿½ ï¿½Ì°ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½Úµï¿½
         MatchTargetParams matchParams = null;
         if (action.EnableTargetMatching)
         {
@@ -70,7 +70,7 @@ public class ParkourController : MonoBehaviour
 
         yield return playerController.DoAction(action.AnimName, matchParams, action.TargetRotation, action.RotateToObstacle,
             action.PostActionDelay, action.Mirror);
-        playerController.SetControl(true); // Áß·Â ¹× collisionÈ°¼ºÈ­
+        playerController.SetControl(true); // ï¿½ß·ï¿½ ï¿½ï¿½ collisionÈ°ï¿½ï¿½È­
     }
 
     void MatchTarget(ParkourAction action)
@@ -78,7 +78,7 @@ public class ParkourController : MonoBehaviour
         if (animator.isMatchingTarget) return;
 
         animator.MatchTarget(action.MatchPos, transform.rotation, action.MatchBodyPart,
-            new MatchTargetWeightMask(action.MatchPosWeight, 0),// vectorÀÇ xyzÁß 1ÀÎ°Í¸¸ À§Ä¡¿¡ match½ÃÅ²´Ù. rotationÀº match¾È½ÃÅ³°Å´Ï 0
+            new MatchTargetWeightMask(action.MatchPosWeight, 0),// vectorï¿½ï¿½ xyzï¿½ï¿½ 1ï¿½Î°Í¸ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ matchï¿½ï¿½Å²ï¿½ï¿½. rotationï¿½ï¿½ matchï¿½È½ï¿½Å³ï¿½Å´ï¿½ 0
             action.MatchStartTime, action.MatchTargetTime);
     }
 }
