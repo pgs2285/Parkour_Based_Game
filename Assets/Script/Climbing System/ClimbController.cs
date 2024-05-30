@@ -8,6 +8,7 @@ public class ClimbController : MonoBehaviour
     EnvironmentScanner envScanner;
     PlayerController playerController;
 
+    ClimbPoint currentPoint;
     public void Awake()
     {
         envScanner = GetComponent<EnvironmentScanner>();        
@@ -24,6 +25,7 @@ public class ClimbController : MonoBehaviour
             {
                 if (envScanner.ClimbLedgeCheck(transform.forward, out RaycastHit ledgeHit))
                 {
+                    currentPoint = ledgeHit.transform.GetComponent<ClimbPoint>();
                     playerController.SetControl(false);
                     StartCoroutine(JumpToLedge("IdleToHang", ledgeHit.transform, 0.41f, 0.54f));
                 }
@@ -31,7 +33,10 @@ public class ClimbController : MonoBehaviour
         }
         else // Ledge to Ledge
         {
+            float h= Mathf.Round(Input.GetAxisRaw("Horizontal"));
+            float v= Mathf.Round(Input.GetAxisRaw("Vertical"));
 
+            Vector2 inputDir = new Vector2(h,v);
         }
     }
 
