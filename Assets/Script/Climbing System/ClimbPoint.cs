@@ -8,7 +8,7 @@ public class ClimbPoint : MonoBehaviour
     [SerializeField] List<Neighbour> neighbours;
 
     private void Awake()
-    { // is two Way Ã¼Å©µÇ¾îÀÖÀ¸¸é ÀÚµ¿À¸·Î ¹Ý´ëÂÊµµ °¡´ÉÇÏ°Ô
+    { // is two Way Ã¼Å©ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý´ï¿½ï¿½Êµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½
         var twoWayNeighbours = neighbours.Where(n => n.isTwoWay);
         foreach (var neighbour in twoWayNeighbours)
         {
@@ -31,6 +31,18 @@ public class ClimbPoint : MonoBehaviour
 
     }
 
+    public Neighbour GetNeighbour(Vector2 direction)
+    { // (0,1)ì„ ì˜ˆì‹œë¡œ, up,right arrowë¥¼ ëˆ„ë¥¸ê²ƒë„ ë°›ì•„ì£¼ì–´ì•¼í•¨. ì¦‰ ì™„ì „ížˆ ë˜‘ê°™ì§€ ì•Šì•„ë„ ë°›ì•„ì•¼ í•˜ë¯€ë¡œ ê³ ë ¤í•´ì„œ ì²˜ë¦¬
+        Neighbour neighbour = null;
+        if(direction.y != 0)
+            neighbour = neighbours.FirstOrDefault(n=>n.direction.y == direction.y); // ìš”ì†Œë¥¼ ì°¾ìœ¼ë©´ ë°˜í™˜ ì—†ìœ¼ë©´ null
+        if(neighbour == null && direction.x != 0)
+            neighbour = neighbours.FirstOrDefault(n=>n.direction.x == direction.x); 
+
+        return neighbour;
+        
+    }
+
     private void OnDrawGizmos()
     {
         Debug.DrawRay(transform.position, transform.forward, Color.blue);
@@ -47,9 +59,9 @@ public class ClimbPoint : MonoBehaviour
 public class Neighbour
 {
     public ClimbPoint point;
-    public Vector2 direction; // ÀÌ µð·º¼ÇÀ¸·Î ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ ´Þ¶óÁü
+    public Vector2 direction; // ï¿½ï¿½ ï¿½ð·º¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ ï¿½Þ¶ï¿½ï¿½ï¿½
     public ConnectionType connectionType;
-    public bool isTwoWay; // °¬À¸¸é ´Ù½Ã µ¹¾Æ¿Ã¼ö ÀÖ³ª
+    public bool isTwoWay; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½Æ¿Ã¼ï¿½ ï¿½Ö³ï¿½
 }
     
 

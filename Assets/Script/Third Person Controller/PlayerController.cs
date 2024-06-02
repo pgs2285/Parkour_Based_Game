@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
 
 
         animator.SetBool("mirrorAction", mirror);
-        animator.CrossFade(animName, 0.2f); // cross fade는 애니메이션이 급격하게 바뀌면 어색하지 않게 블렌딩 함수를 통해 자연스래 만들어줌, 두번쨰 인수는 fade out 시간
+        animator.CrossFadeInFixedTime(animName, 0.2f); // cross fade는 애니메이션이 급격하게 바뀌면 어색하지 않게 블렌딩 함수를 통해 자연스래 만들어줌, 두번쨰 인수는 fade out 시간
         yield return null; //  한 프레임을 넘김으로써 전환
 
         var animState = animator.GetNextAnimatorStateInfo(0); // 0번 레이어의 전환정보를 가져옴.
@@ -130,11 +130,14 @@ public class PlayerController : MonoBehaviour
             Debug.LogError("애니메이션이 존재하지 않는다.");
         }
 
+        float rotateStartTime = (matchParams != null) ? matchParams.startTime : 0f;
+
         float timer = 0f;
         while(timer <= animState.length)
         { // 애니메이션동안
             timer += Time.deltaTime;
-            if(rotate)
+            float normalizedTime = timer / animState.length;
+            if(rotate && normalizedTime > rotateStartTime)
             {
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
             }//애니메이션 진행동안 업데이트
