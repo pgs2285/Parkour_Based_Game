@@ -113,7 +113,8 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    public IEnumerator DoAction(string animName, MatchTargetParams matchParams, Quaternion targetRotation, bool rotate=false, float postDelay = 0f, bool mirror = false)
+    public IEnumerator DoAction(string animName, MatchTargetParams matchParams = null, Quaternion targetRotation = new Quaternion(),
+        bool rotate=false, float postDelay = 0f, bool mirror = false)
     {
         InAction = true;
 
@@ -125,7 +126,7 @@ public class PlayerController : MonoBehaviour
         yield return null; //  한 프레임을 넘김으로써 전환
 
         var animState = animator.GetNextAnimatorStateInfo(0); // 0번 레이어의 전환정보를 가져옴.
-        if(animState.IsName(animName))
+        if(!animState.IsName(animName))
         {
             Debug.LogError("애니메이션이 존재하지 않는다.");
         }
@@ -175,6 +176,16 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("moveAmount", 0f);
             targetRotation = transform.rotation;
         }
+    }
+
+    public void EnableCharacterController(bool enabled)
+    {
+        characterController.enabled = enabled;
+    }
+
+    public void ResetTargetRotation()
+    {
+        targetRotation = transform.rotation;
     }
 
     public bool HasControl

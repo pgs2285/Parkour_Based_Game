@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d9d0889e0e276e4cb365336e1dc99f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mountPoint: 1
   neighbours:
   - point: {fileID: 6555672958570090833}
     direction: {x: -1, y: 0}
@@ -93,6 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d9d0889e0e276e4cb365336e1dc99f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mountPoint: 1
   neighbours: []
 --- !u!1 &1989812350163464025
 GameObject:
@@ -138,6 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d9d0889e0e276e4cb365336e1dc99f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mountPoint: 1
   neighbours:
   - point: {fileID: 2475290274965999267}
     direction: {x: -1, y: 0}
@@ -187,6 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d9d0889e0e276e4cb365336e1dc99f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mountPoint: 1
   neighbours:
   - point: {fileID: 134439826555557700}
     direction: {x: -1, y: 0}
@@ -236,6 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d9d0889e0e276e4cb365336e1dc99f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mountPoint: 1
   neighbours:
   - point: {fileID: 8460116697383180529}
     direction: {x: -1, y: 0}
