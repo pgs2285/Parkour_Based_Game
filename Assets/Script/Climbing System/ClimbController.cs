@@ -131,8 +131,8 @@ public class ClimbController : MonoBehaviour
     IEnumerator MountFromHang(Vector3 currentPoint)
     {
         MatchTargetParams matchTargetParams = new MatchTargetParams()
-        {
-            pos = currentPoint,
+        {// 손이 y축으로 붕 떠서 matchtarget
+            pos = currentPoint + new Vector3(0,0.1f, 0), 
             bodyPart = AvatarTarget.RightHand,
             posWeight = new Vector3(0, 1, 0),
             startTime = 0.0f,
