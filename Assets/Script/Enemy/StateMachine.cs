@@ -61,7 +61,7 @@ public class StateMachine<T>
 
         return currentState as R;
     }
-< }
+ }
 
 public abstract class State<T>
 {
@@ -81,6 +81,6 @@ public abstract class State<T>
     }
     public virtual void OnInitialiezed() {}
     public virtual void OnEnter() { }
-    public abstract void Update(float deltaTime) { }
+    public abstract void Update(float deltaTime);
     public virtual void OnExit() { }
 }
