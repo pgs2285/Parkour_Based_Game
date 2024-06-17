@@ -6,14 +6,16 @@ public class IdleState : State<EnemyController>
 {
     private Animator animator;
     private CharacterController characterController;
+    private FieldOfView _FOV;
 
     protected int hasMove = Animator.StringToHash("Move");
     protected int moveSpeed = Animator.StringToHash("MoveSpeed");
 
-    public override void OnInitialiezed()
+    public override void OnInitialized()
     {
         animator = context.GetComponent<Animator>();
         characterController = context.GetComponent<CharacterController>();
+        _FOV = context.GetComponent<FieldOfView>();
     }
 
     public override void OnEnter()
@@ -25,6 +27,12 @@ public class IdleState : State<EnemyController>
     }
     public override void Update(float deltaTime)
     {
-        throw new System.NotImplementedException();
+        Debug.Log(animator + " " + characterController + " " + _FOV);
+        Transform enemy = _FOV.nearestTarget;
+        if (enemy)
+        {
+            stateMachine.ChangeState<MoveState>();
+        }
+
     }
 }

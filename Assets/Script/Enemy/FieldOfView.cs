@@ -18,12 +18,12 @@ public class FieldOfView : MonoBehaviour
     
     #region Methods
 
+   
     void FindVisibleTarget()
     {
         visibleTarget.Clear();
         nearestTarget = null;
         distanceToTarget = 0f;
-
         Collider[] targetInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask); // overlap sphere에 충돌한 적들 찾기
         foreach (Collider target in targetInViewRadius)
         {

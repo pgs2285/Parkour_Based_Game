@@ -77,9 +77,9 @@ public abstract class State<T>
         this.stateMachine = stateMachine;
         this.context = context;
 
-       
+        OnInitialized();
     }
-    public virtual void OnInitialiezed() {}
+    public virtual void OnInitialized() {}
     public virtual void OnEnter() { }
     public abstract void Update(float deltaTime);
     public virtual void OnExit() { }

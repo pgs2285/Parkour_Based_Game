@@ -11,18 +11,25 @@ public class EnemyController : MonoBehaviour
     public Transform target;
     public float viewRadius;
     public float AttackRange;
+    private FieldOfView _FOV;
     #endregion
 
 
 
     #region Unity Methods
 
+    private void Awake()
+    {
+        _FOV = GetComponent<FieldOfView>();
+    }
     private void Start()
     {
-        
+        stateMachine = new StateMachine<EnemyController>(this, new IdleState());
+        stateMachine.AddState(new MoveState());
     }
     private void Update()
     {
+        target = _FOV.nearestTarget;
         stateMachine.Update(Time.deltaTime);    
     }
     #endregion
@@ -30,18 +37,6 @@ public class EnemyController : MonoBehaviour
 
 
     #region Other Methods
-    public Transform SearchEnemy()
-    {
-        target = null;
 
-        Collider[] targetInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask); // 적을 찾음
-        foreach(Collider target in targetInViewRadius)
-        {
-
-        }
-
-
-        return target;
-    }
     #endregion
 }
