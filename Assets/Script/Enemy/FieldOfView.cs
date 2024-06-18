@@ -38,7 +38,7 @@ public class FieldOfView : MonoBehaviour
                     {
                         nearestTarget = target.transform;
                         distanceToTarget = distToTarget;
-                        Debug.Log(nearestTarget.name);
+                        
                     }
                 }
             }

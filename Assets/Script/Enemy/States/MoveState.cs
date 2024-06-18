@@ -38,6 +38,7 @@ public class MoveState : State<EnemyController>
     public override void Update(float deltaTime)
     {
         Transform enemy = _FOV.nearestTarget;
+        
         if (enemy)
         {
             _agent.SetDestination(enemy.transform.position);
@@ -45,11 +46,11 @@ public class MoveState : State<EnemyController>
             {
                 _characterController.Move(_agent.velocity * deltaTime);
                 _animator.SetFloat(moveSpeedHash, _agent.velocity.magnitude / _agent.speed, 1f, deltaTime);
+                
                 return;
             }
-
-            stateMachine.ChangeState<IdleState>();
         }
+        stateMachine.ChangeState<IdleState>();
     }
 
     public override void OnExit()
