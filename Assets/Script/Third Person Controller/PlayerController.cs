@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using Photon.Pun;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 5f;
@@ -33,17 +33,25 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     CharacterController characterController;
     EnvironmentScanner environmentScanner;
+    private PhotonView _photonView;
     private void Awake()
     {
         cameraController = Camera.main.GetComponent<CameraController>();
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         environmentScanner = GetComponent<EnvironmentScanner>();
+        
     }
 
+    private void Start()
+    {
+        _photonView = GetComponent<PhotonView>();
 
+    }
     private void Update()
     {
+        if (!_photonView.IsMine)
+            return;
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
