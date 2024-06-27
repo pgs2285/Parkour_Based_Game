@@ -25,20 +25,46 @@ public class ClimbController : MonoBehaviour
             {
                 if (envScanner.ClimbLedgeCheck(transform.forward, out RaycastHit ledgeHit))
                 {
-                    currentPoint = ledgeHit.transform.GetComponent<ClimbPoint>();
+                    currentPoint = GetNearestClimbPoint(ledgeHit.transform, ledgeHit.point);
                     playerController.SetControl(false);
-                    StartCoroutine(JumpToLedge("IdleToHang", ledgeHit.transform, 0.41f, 0.54f));
+                    StartCoroutine(JumpToLedge("IdleToHang", currentPoint.transform, 0.41f, 0.54f));
+                }
+            }
+
+            if(Input.GetButton("Drop") && !playerController.InAction)
+            {
+                if(envScanner.DropLedgeCheck(out RaycastHit ledgeHit))
+                {
+                    currentPoint = GetNearestClimbPoint(ledgeHit.transform, ledgeHit.point); // 가장 하위 climb point 가까운것 
+                    playerController.SetControl(false);
+                    StartCoroutine(JumpToLedge("DropToHang", currentPoint.transform, 0.30f, 0.45f, handOffset: new Vector3(0.25f, 0.2f, -0.2f)));
                 }
             }
         }
         else // Ledge to Ledge
         {
+            if(Input.GetButton("Drop") && !playerController.InAction)
+            {
+                StartCoroutine(JumpFromHang());
+                return;
+            }
+            // Ledge to Ledge Jump
+
+
+
             float h= Mathf.Round(Input.GetAxisRaw("Horizontal"));
             float v= Mathf.Round(Input.GetAxisRaw("Vertical"));
 
             Vector2 inputDir = new Vector2(h,v);
 
             if(playerController.InAction || inputDir == Vector2.zero) return;
+
+            // 매달리기 상태에서 상단으로 mount
+            if(currentPoint.MountPoint && inputDir.y == 1)
+            {
+                StartCoroutine(MountFromHang(currentPoint.transform.position));
+                return;
+            }
 
             var neighbour = currentPoint.GetNeighbour(inputDir);
             if(neighbour == null) return;
@@ -92,5 +118,54 @@ public class ClimbController : MonoBehaviour
 
         var hDir = hand == AvatarTarget.RightHand ? ledge.right : -ledge.right;
         return ledge.position + ledge.forward * offVal.z + Vector3.up * offVal.y - hDir * offVal.x;
+    }
+
+    IEnumerator JumpFromHang()
+    {
+        playerController.IsHanging = false;
+        yield return playerController.DoAction("JumpFromHang");
+        playerController.ResetTargetRotation();
+        playerController.SetControl(true);
+    }
+
+    IEnumerator MountFromHang(Vector3 currentPoint)
+    {
+        MatchTargetParams matchTargetParams = new MatchTargetParams()
+        {// 손이 y축으로 붕 떠서 matchtarget
+            pos = currentPoint + new Vector3(0,0.1f, 0), 
+            bodyPart = AvatarTarget.RightHand,
+            posWeight = new Vector3(0, 1, 0),
+            startTime = 0.0f,
+            targetTime = 0.6f
+        };
+
+        playerController.IsHanging = false;
+        yield return playerController.DoAction("ClimbFromHang", matchTargetParams);
+
+        playerController.EnableCharacterController(true);
+
+        yield return new WaitForSeconds(0.5f);
+
+        playerController.ResetTargetRotation();
+        playerController.SetControl(true);
+    }
+
+    ClimbPoint GetNearestClimbPoint(Transform ledge, Vector3 hitPoint)
+    { // long ledge안에있는 가장 가까운 climbpoint 찾기
+        var points = ledge.GetComponentsInChildren<ClimbPoint>();
+
+        ClimbPoint nearestPoint = null;
+        float nearestPointDistance = Mathf.Infinity;
+
+        foreach(var point in points)
+        {
+            float distance = Vector3.Distance(point.transform.position, hitPoint); // 충돌지점과 하위 object들중 가장 가까운것 찾기
+            if(distance < nearestPointDistance)
+            {
+                nearestPoint = point;
+                nearestPointDistance = distance;
+            }
+        }
+        return nearestPoint;
     }
 }

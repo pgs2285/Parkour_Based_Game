@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] Transform followTarget;
+     public Transform followTarget;
 
     [SerializeField] float rotationSpeed = 2f;
     [SerializeField] float distance = 5;
