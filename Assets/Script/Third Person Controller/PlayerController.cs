@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
         velocity.y = ySpeed;
         characterController.Move(velocity* Time.deltaTime);
 
-        if (moveAmount > 0 && moveDir.magnitude > 0.2f) // ledgeÀÇ °¢µµ°¡ 90µµ ÀÌ»óÀÌ ¾Æ´Ï¸é ¶³¾îÁöÁö ¾Ê°Ô Çß´Âµ¥, zero°¡ µÇ¸é ÇÃ·¹ÀÌ¾î°¡ È¸ÀüÇÏ´Ï ¹æÁöÇÏ±â À§ÇÑ magnitude°ª
+        if (moveAmount > 0 && moveDir.magnitude > 0.2f) // ledgeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 90ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ß´Âµï¿½, zeroï¿½ï¿½ ï¿½Ç¸ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ È¸ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ magnitudeï¿½ï¿½
         {
             targetRotation = Quaternion.LookRotation(moveDir);
         }
@@ -126,41 +126,41 @@ public class PlayerController : MonoBehaviour
     {
         InAction = true;
 
-        //Áß·Â ¹× ÄÝ¸®´õ ‹š¹®¿¡ °è´ÜÀ» ¿Ã¶ó°¡Áö ¸øÇÏ¹Ç·Î, ÀÏ´Ü ÀÌ°ÍÀ» ºñÈ°¼ºÈ­ ÇØÁÖ´Â ÄÚµå
+        //ï¿½ß·ï¿½ ï¿½ï¿½ ï¿½Ý¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¹Ç·ï¿½, ï¿½Ï´ï¿½ ï¿½Ì°ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½Úµï¿½
 
 
         animator.SetBool("mirrorAction", mirror);
-        animator.CrossFadeInFixedTime(animName, 0.2f); // cross fade´Â ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ ±Þ°ÝÇÏ°Ô ¹Ù²î¸é ¾î»öÇÏÁö ¾Ê°Ô ºí·»µù ÇÔ¼ö¸¦ ÅëÇØ ÀÚ¿¬½º·¡ ¸¸µé¾îÁÜ, µÎ¹ø¤Š ÀÎ¼ö´Â fade out ½Ã°£
-        yield return null; //  ÇÑ ÇÁ·¹ÀÓÀ» ³Ñ±èÀ¸·Î½á ÀüÈ¯
+        animator.CrossFadeInFixedTime(animName, 0.2f); // cross fadeï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ ï¿½Þ°ï¿½ï¿½Ï°ï¿½ ï¿½Ù²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Î¹ï¿½ï¿½ï¿½ ï¿½Î¼ï¿½ï¿½ï¿½ fade out ï¿½Ã°ï¿½
+        yield return null; //  ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ±ï¿½ï¿½ï¿½ï¿½Î½ï¿½ ï¿½ï¿½È¯
 
-        var animState = animator.GetNextAnimatorStateInfo(0); // 0¹ø ·¹ÀÌ¾îÀÇ ÀüÈ¯Á¤º¸¸¦ °¡Á®¿È.
+        var animState = animator.GetNextAnimatorStateInfo(0); // 0ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
         if(!animState.IsName(animName))
         {
-            Debug.LogError("¾Ö´Ï¸ÞÀÌ¼ÇÀÌ Á¸ÀçÇÏÁö ¾Ê´Â´Ù.");
+            Debug.LogError("ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.");
         }
 
         float rotateStartTime = (matchParams != null) ? matchParams.startTime : 0f;
 
         float timer = 0f;
         while(timer <= animState.length)
-        { // ¾Ö´Ï¸ÞÀÌ¼Çµ¿¾È
+        { // ï¿½Ö´Ï¸ï¿½ï¿½Ì¼Çµï¿½ï¿½ï¿½
             timer += Time.deltaTime;
             float normalizedTime = timer / animState.length;
             if(rotate && normalizedTime > rotateStartTime)
             {
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-            }//¾Ö´Ï¸ÞÀÌ¼Ç ÁøÇàµ¿¾È ¾÷µ¥ÀÌÆ®
+            }//ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½àµ¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 
             if (matchParams!=null)
                 MatchTarget(matchParams);
 
-            if(animator.IsInTransition(0) && timer> 1.0f) // Vault°°Àº°ÍÀº ¶Ù¾î³Ñ°í °øÁß¿¡ ÂøÁöÇÏ´Ï ÀüÈ¯ÁßÀÏ¶§ Áß·ÂÀ» µ¹·Á³õ±â À§ÇÔ. ½ÃÀÛ ÀüÈ¯¶§´Â breakÇÏ¸é ¾ÈµÇ´Ï 0.5°°Àº ÀÛÀº°ªÀ» Á¶°ÇÀ¸·Î
+            if(animator.IsInTransition(0) && timer> 1.0f) // Vaultï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¾ï¿½Ñ°ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ï¿½Ï¶ï¿½ ï¿½ß·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ breakï¿½Ï¸ï¿½ ï¿½ÈµÇ´ï¿½ 0.5ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 break;
 
             yield return null;
         }
 
-        yield return new WaitForSeconds(postDelay); // ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ 2°³°¡ ¿¬°áµÈ °æ¿ì ÄÁÆ®·Ñ·¯ ³Ñ±â±âÀü¿¡ ´õ µô·¹ÀÌ
+        yield return new WaitForSeconds(postDelay); // ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½Ñ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
        
         InAction = false;
@@ -171,7 +171,7 @@ public class PlayerController : MonoBehaviour
         if (animator.isMatchingTarget) return;
 
         animator.MatchTarget(mp.pos, transform.rotation, mp.bodyPart,
-            new MatchTargetWeightMask(mp.posWeight, 0),// vectorÀÇ xyzÁß 1ÀÎ°Í¸¸ À§Ä¡¿¡ match½ÃÅ²´Ù. rotationÀº match¾È½ÃÅ³°Å´Ï 0
+            new MatchTargetWeightMask(mp.posWeight, 0),// vectorï¿½ï¿½ xyzï¿½ï¿½ 1ï¿½Î°Í¸ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ matchï¿½ï¿½Å²ï¿½ï¿½. rotationï¿½ï¿½ matchï¿½È½ï¿½Å³ï¿½Å´ï¿½ 0
             mp.startTime, mp.targetTime);
     }
     public void SetControl(bool hasControl)

@@ -24,6 +24,7 @@ public class CameraController : MonoBehaviour
     float invertXVal;
     float invertYVal;
 
+    Vector3 focusPosition;
     private void Start()
     {
         Cursor.visible = false;
@@ -42,7 +43,10 @@ public class CameraController : MonoBehaviour
 
         Quaternion targetRotation = Quaternion.Euler(rotationX, rotationY, 0);
 
-        Vector3 focusPosition = followTarget.position + new Vector3(framinOffset.x, framinOffset.y);
+        if(!followTarget)
+            return;
+        
+        focusPosition = followTarget.position + new Vector3(framinOffset.x, framinOffset.y);
 
         transform.position = focusPosition - targetRotation *  new Vector3(0, 0, distance);
         transform.rotation = targetRotation;
