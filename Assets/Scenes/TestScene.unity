@@ -813,8 +813,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53bba9cc550204843a5e7372e52abcad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screenWidth: 1080
-  screenHeight: 1920
+  screenWidth: 540
+  screenHeight: 960
 --- !u!4 &870239547 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1742171972634757268, guid: 07d6206034b163f45963357244b52f4e,

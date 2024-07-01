@@ -130,7 +130,8 @@ public class PlayerController : MonoBehaviour
 
 
         animator.SetBool("mirrorAction", mirror);
-        animator.CrossFadeInFixedTime(animName, 0.2f); // cross fade�� �ִϸ��̼��� �ް��ϰ� �ٲ�� ������� �ʰ� ������ �Լ��� ���� �ڿ����� �������, �ι��� �μ��� fade out �ð�
+        //animator.CrossFadeInFixedTime(animName, 0.2f); // cross fade�� �ִϸ��̼��� �ް��ϰ� �ٲ�� ������� �ʰ� ������ �Լ��� ���� �ڿ����� �������, �ι��� �μ��� fade out �ð�
+        CrossFadeAnimation(animName, 0.2f);
         yield return null; //  �� �������� �ѱ����ν� ��ȯ
 
         var animState = animator.GetNextAnimatorStateInfo(0); // 0�� ���̾��� ��ȯ������ ������.
@@ -208,6 +209,12 @@ public class PlayerController : MonoBehaviour
     }
 
     public float RotationSpeed => rotationSpeed;
+    [PunRPC]
+    private void CrossFadeAnimation(string animName, float transitionDuration)
+    {
+        animator.CrossFadeInFixedTime(animName, transitionDuration);
+    }
+
 
 }
 

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2961826293671687718}
   - component: {fileID: 2504019093806327079}
   - component: {fileID: 2941425340389416633}
-  - component: {fileID: 7051737750391159070}
+  - component: {fileID: 3651471305678152288}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -179,27 +179,38 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 7051737750391159070}
+  - {fileID: 3651471305678152288}
   - {fileID: 3164522527105865044}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &7051737750391159070
+--- !u!114 &3651471305678152288
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3763249936646952991}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 0
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 1
+    SynchronizeType: 2
+    Name: moveAmount
+  - Type: 4
+    SynchronizeType: 2
+    Name: mirrorAction
+  - Type: 4
+    SynchronizeType: 2
+    Name: IsGrounded
+  m_SynchronizeLayers:
+  - SynchronizeType: 2
+    LayerIndex: 0
 --- !u!1001 &6008337804557944520
 PrefabInstance:
   m_ObjectHideFlags: 0
