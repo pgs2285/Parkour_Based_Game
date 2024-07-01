@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
 
         animator.SetBool("mirrorAction", mirror);
         //animator.CrossFadeInFixedTime(animName, 0.2f); // cross fade�� �ִϸ��̼��� �ް��ϰ� �ٲ�� ������� �ʰ� ������ �Լ��� ���� �ڿ����� �������, �ι��� �μ��� fade out �ð�
-        CrossFadeAnimation(animName, 0.2f);
+        _photonView.RPC("CrossFadeAnimation", RpcTarget.All, animName, 0.2f); 
         yield return null; //  �� �������� �ѱ����ν� ��ȯ
 
         var animState = animator.GetNextAnimatorStateInfo(0); // 0�� ���̾��� ��ȯ������ ������.
