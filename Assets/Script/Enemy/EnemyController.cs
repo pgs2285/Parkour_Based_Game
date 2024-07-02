@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -12,6 +13,8 @@ public class EnemyController : MonoBehaviour
     public float viewRadius;
     public float AttackRange;
     private FieldOfView _FOV;
+    [HideInInspector]
+    public PhotonView _photon;
     #endregion
 
 
@@ -21,6 +24,7 @@ public class EnemyController : MonoBehaviour
     private void Awake()
     {
         _FOV = GetComponent<FieldOfView>();
+        _photon = GetComponent<PhotonView>();
     }
     private void Start()
     {

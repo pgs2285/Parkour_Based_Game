@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 603742451013522496}
   - component: {fileID: 336784006238405073}
   - component: {fileID: 9102918278444141167}
+  - component: {fileID: 1261101119238198874}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: Untagged
@@ -147,6 +148,30 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1261101119238198874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749781538183920416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 2
+    Name: Move
+  - Type: 1
+    SynchronizeType: 2
+    Name: MoveSpeed
+  m_SynchronizeLayers:
+  - SynchronizeType: 2
+    LayerIndex: 0
 --- !u!1001 &8712682573551660212
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -219,8 +244,34 @@ PrefabInstance:
     - {fileID: 5866666021909216657, guid: 1847acfdd16ac1f478d7554d88f1524d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1847acfdd16ac1f478d7554d88f1524d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3602327407291905467}
   m_SourcePrefab: {fileID: 100100000, guid: 1847acfdd16ac1f478d7554d88f1524d, type: 3}
+--- !u!1 &8370154803627905509 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1847acfdd16ac1f478d7554d88f1524d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8712682573551660212}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3602327407291905467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8370154803627905509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!4 &9179202313807792991 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1847acfdd16ac1f478d7554d88f1524d,
