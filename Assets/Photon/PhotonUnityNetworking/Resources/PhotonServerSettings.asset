@@ -41,6 +41,11 @@ MonoBehaviour:
   - RespawnSpaceship
   - CrossFadeAnimation
   - TrackEnemy
+  - OnEnter
+  - OnExit
+  - OnInitialized
+  - Update
+  - getAndDestroy
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

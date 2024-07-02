@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -104,8 +105,15 @@ public class EnvironmentScanner : MonoBehaviour
 
         return false;
     }
-    
-    
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.CompareTag("Item"))
+        {
+            Debug.Log("Hit with Item");
+            hit.gameObject.GetComponent<IWeapon>().onCollision();
+        }
+    }
 }
 
 
