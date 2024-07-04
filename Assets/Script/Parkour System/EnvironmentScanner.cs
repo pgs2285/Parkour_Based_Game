@@ -15,6 +15,8 @@ public class EnvironmentScanner : MonoBehaviour
     [SerializeField] float climbLedgeRayLength = 1.5f;
     [SerializeField] float ledgeHeightThreshold = 0.75f;
 
+    private bool isPicking = false;
+
     public ObstacleHitData ObstacleCheck()
     {
         ObstacleHitData hitData = new ObstacleHitData();
@@ -112,8 +114,27 @@ public class EnvironmentScanner : MonoBehaviour
         {
             Debug.Log("Hit with Item");
             hit.gameObject.GetComponent<IWeapon>().onCollision();
+            PickUpItem(hit.gameObject); // 게임 설계에 바뀌면 나중에 배열로 아이템 리스트 저장해도 될듯?
+            
         }
     }
+    
+    #region Item Function
+
+    public void PickUpItem(GameObject item)
+    {
+        isPicking = true;
+        SetEquip(item, true);
+    }
+    void SetEquip(GameObject item, bool isEquip)
+    {
+        Collider[] itemCollider = item.GetComponents<Collider>();
+        foreach (Collider col in itemCollider)
+        {
+            col.enabled = !isEquip;
+        }
+    }
+    #endregion Item Function
 }
 
 

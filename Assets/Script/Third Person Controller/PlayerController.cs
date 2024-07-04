@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     CharacterController characterController;
     EnvironmentScanner environmentScanner;
     private PhotonView _photonView;
+    public PhotonView PV => _photonView;
     private void Awake()
     {
         cameraController = Camera.main.GetComponent<CameraController>();

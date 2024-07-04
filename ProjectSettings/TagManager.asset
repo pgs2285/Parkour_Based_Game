@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fence
   - Item
+  - EquipPoint
   layers:
   - Default
   - TransparentFX
