@@ -1,9 +1,10 @@
 
 using Photon.Pun;
+using UnityEngine;
 
 public interface IWeapon
 {
-    void onCollision();
+    void onCollision(GameObject owner);
 
 
 }

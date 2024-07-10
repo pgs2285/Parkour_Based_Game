@@ -620,28 +620,16 @@ GameObject:
   - component: {fileID: 278727867}
   - component: {fileID: 278727866}
   - component: {fileID: 278727865}
-  - component: {fileID: 278727864}
   - component: {fileID: 278727869}
   - component: {fileID: 278727870}
-  m_Layer: 0
+  - component: {fileID: 278727871}
+  m_Layer: 9
   m_Name: hammer
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &278727864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 278727863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7ac1ef97be5bd1469ae77ee90c77a2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &278727865
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -657,7 +645,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -757,7 +745,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 278727863}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e3ca4eccb3cd9846bd6c19b69c5ea5c, type: 3}
   m_Name: 
@@ -765,6 +753,18 @@ MonoBehaviour:
   floatAmplitude: 0.5
   floatSpeed: 1
   rotationSpeed: {x: 0, y: 30, z: 0}
+--- !u!114 &278727871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278727863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3faf5ca6734025045b23084a13f339a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &344283273
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2152,6 +2152,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1973747734}
+  - component: {fileID: 1973747735}
   m_Layer: 0
   m_Name: test
   m_TagString: Untagged
@@ -2174,6 +2175,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1973747735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973747733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081ae761f6dfc9f448313f4de5792b9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1979398923 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6555672958570090833, guid: f7d621bbf3aec8c42954f2b2d6ccadf5,
@@ -2427,6 +2440,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Zombie
+      objectReference: {fileID: 0}
+    - target: {fileID: 1749781538183920416, guid: 2d7e62e4e8bc5dc4d9efa4d9f1b5698c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3602327407291905467, guid: 2d7e62e4e8bc5dc4d9efa4d9f1b5698c,
         type: 3}

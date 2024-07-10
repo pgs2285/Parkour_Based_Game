@@ -90,6 +90,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  playerID: 0
 --- !u!95 &7807164273789972408
 Animator:
   serializedVersion: 5

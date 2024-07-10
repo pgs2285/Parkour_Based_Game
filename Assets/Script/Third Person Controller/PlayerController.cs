@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public bool InAction { get; private set; } 
     public bool IsHanging { get; set; }
 
+    [HideInInspector] public string playerID;
     Vector3 desiredMoveDir;
     Vector3 moveDir;
     Vector3 velocity;
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _photonView = GetComponent<PhotonView>();
+        playerID = PhotonNetwork.LocalPlayer.UserId;
 
     }
     private void Update()
