@@ -97,34 +97,7 @@ public class EnvironmentScanner : MonoBehaviour
         }
         return false;
     }
-
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        if (hit.gameObject.CompareTag("Item"))
-        {
-            Debug.Log("Hit with Item");
-
-        }
-    }
-
-    #region Item Function
-
-    public void PickUpItem(GameObject item)
-    {
-        isPicking = true;
-        SetEquip(item, true);
-    }
-
-    void SetEquip(GameObject item, bool isEquip)
-    {
-        Collider[] itemCollider = item.GetComponents<Collider>();
-        foreach (Collider col in itemCollider)
-        {
-            col.enabled = !isEquip;
-        }
-    }
-
-    #endregion Item Function
+    
 }
 
 public struct ObstacleHitData

@@ -3,9 +3,10 @@ using Photon.Pun;
 
 public class ItemPickup : MonoBehaviourPunCallbacks
 {
+    private bool isPicked = false;
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && other.GetComponent<CharacterController>() != null)
+        if (other.CompareTag("Player") && other.GetComponent<CharacterController>() != null && !isPicked)
         {
             PhotonView playerPhotonView = other.GetComponent<PhotonView>();
             PhotonView itemPhotonView = GetComponent<PhotonView>();
@@ -15,7 +16,7 @@ public class ItemPickup : MonoBehaviourPunCallbacks
                 Transform attachPoint = FindAttachPoint(other.transform, "EquipPoint");
                 if (attachPoint != null)
                 {
-                    // æ∆¿Ã≈€ ∞¥√º¿« RPC ∏ﬁº≠µÂ∏¶ »£√‚«’¥œ¥Ÿ.
+                    // ÏïÑÏù¥ÌÖú Í∞ùÏ≤¥Ïùò RPC Î©îÏÑúÎìúÎ•º Ìò∏Ï∂úÌï©ÎãàÎã§.
                     itemPhotonView.RPC("PickupItem", RpcTarget.AllBuffered, playerPhotonView.ViewID, itemPhotonView.ViewID);
                 }
             }
@@ -49,11 +50,14 @@ public class ItemPickup : MonoBehaviourPunCallbacks
         {
             Transform attachPoint = FindAttachPoint(playerPhotonView.transform, "EquipPoint");
             if (attachPoint != null)
-            {
+            {           isPicked = true;
                 itemPhotonView.transform.SetParent(attachPoint);
                 itemPhotonView.transform.localPosition = Vector3.zero;
                 itemPhotonView.transform.localRotation = Quaternion.identity;
             }
         }
+        
+
+        this.enabled = false;
     }
 }

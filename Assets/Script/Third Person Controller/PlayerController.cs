@@ -100,8 +100,10 @@ public class PlayerController : MonoBehaviour
         }
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-
-
+        if (Input.GetKeyDown(KeyCode.Mouse0) && animator.GetCurrentAnimatorStateInfo(0).IsName("Attack1") == false) // not playing attack animation
+        {
+            _photonView.RPC("CrossFadeAnimation", RpcTarget.All, "Attack1", 0.2f);
+        }
     }
 
     void GroundCheck()
@@ -218,6 +220,20 @@ public class PlayerController : MonoBehaviour
         animator.CrossFadeInFixedTime(animName, transitionDuration);
     }
 
+    private bool isHit = false;
+    void OnControllerColliderHit(ControllerColliderHit collider)
+    {
+        if (collider.gameObject.CompareTag("Item") && animator.GetCurrentAnimatorStateInfo(0).IsName("HIt") == false)
+        {
+            isHit = true;
+            _photonView.RPC("CrossFadeAnimation", RpcTarget.All, "Hit", 0.1f);
+        }
+    }
+
+    public void resetHit()
+    {
+        isHit = false;
+    }
 
 }
 
