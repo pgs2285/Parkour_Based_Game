@@ -59353,7 +59353,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 1.9333333
-    functionName: resetHIt
+    functionName: resetHit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

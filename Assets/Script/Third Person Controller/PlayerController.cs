@@ -221,10 +221,15 @@ public class PlayerController : MonoBehaviour
     }
 
     private bool isHit = false;
-    void OnControllerColliderHit(ControllerColliderHit collider)
+    void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.CompareTag("Item") && animator.GetCurrentAnimatorStateInfo(0).IsName("HIt") == false)
+        
+        if (collider.gameObject.CompareTag("Item") 
+            && animator.GetCurrentAnimatorStateInfo(0).IsName("Hit") == false 
+            && PV.ViewID != collider.GetComponent<Weapon>().ownerID
+            )
         {
+            
             isHit = true;
             _photonView.RPC("CrossFadeAnimation", RpcTarget.All, "Hit", 0.1f);
         }
