@@ -17,7 +17,9 @@ public class ItemPickup : MonoBehaviourPunCallbacks
                 if (attachPoint != null)
                 {
                     // 아이템 객체의 RPC 메서드를 호출합니다.
-                    itemPhotonView.RPC("PickupItem", RpcTarget.AllBuffered, playerPhotonView.ViewID, itemPhotonView.ViewID, other);
+                    itemPhotonView.RPC("PickupItem", RpcTarget.AllBuffered, playerPhotonView.ViewID, itemPhotonView.ViewID); 
+                    //Debug.Log(other.GetComponent<Weapon>());
+                    this.GetComponent<Weapon>().ownerID = playerPhotonView.ViewID;
                 }
             }
         }
@@ -41,11 +43,10 @@ public class ItemPickup : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void PickupItem(int playerViewID, int itemViewID, Collider collider)
+    void PickupItem(int playerViewID, int itemViewID)
     {
         PhotonView playerPhotonView = PhotonView.Find(playerViewID);
         PhotonView itemPhotonView = PhotonView.Find(itemViewID);
-        collider.GetComponent<Weapon>().ownerID = playerPhotonView.ViewID;
 
         if (playerPhotonView != null && itemPhotonView != null)
         {
