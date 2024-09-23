@@ -1,5 +1,6 @@
 using UnityEngine;
 using Photon.Pun;
+using Unity.VisualScripting;
 
 public class ItemPickup : MonoBehaviourPunCallbacks
 {
@@ -22,6 +23,10 @@ public class ItemPickup : MonoBehaviourPunCallbacks
                     this.GetComponent<Weapon>().ownerID = playerPhotonView.ViewID;
                 }
             }
+            
+            other.GetComponent<PlayerController>().Weapon = this.gameObject;
+            this.gameObject.GetComponent<Collider>().enabled = false;
+
         }
     }
 

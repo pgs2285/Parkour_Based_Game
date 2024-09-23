@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     EnvironmentScanner environmentScanner;
     private PhotonView _photonView;
     public PhotonView PV => _photonView;
+    public GameObject Weapon;
     private void Awake()
     {
         cameraController = Camera.main.GetComponent<CameraController>();
@@ -94,18 +95,21 @@ public class PlayerController : MonoBehaviour
         velocity.y = ySpeed;
         characterController.Move(velocity* Time.deltaTime);
 
-        if (moveAmount > 0 && moveDir.magnitude > 0.2f) // ledge�� ������ 90�� �̻��� �ƴϸ� �������� �ʰ� �ߴµ�, zero�� �Ǹ� �÷��̾ ȸ���ϴ� �����ϱ� ���� magnitude��
+        if (moveAmount > 0 && moveDir.magnitude > 0.2f) // ledge?? ?????? 90?? ????? ???? ???????? ??? ????, zero?? ??? ?��???? ?????? ??????? ???? magnitude??
         {
             targetRotation = Quaternion.LookRotation(moveDir);
         }
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && animator.GetCurrentAnimatorStateInfo(0).IsName("Attack1") == false) // not playing attack animation
+        if (Input.GetKeyDown(KeyCode.Mouse0) &&
+            animator.GetCurrentAnimatorStateInfo(0).IsName("Attack1") == false &&
+            Weapon != null)  // not playing attack animation
         {
             _photonView.RPC("CrossFadeAnimation", RpcTarget.All, "Attack1", 0.2f);
+            Weapon.GetComponent<Collider>().enabled = true;
+            
         }
     }
-
     void GroundCheck()
     {
         isGrounded = Physics.CheckSphere(transform.TransformPoint(groundCheckOffset), groundCheckRadius, groundLayer);
@@ -131,42 +135,42 @@ public class PlayerController : MonoBehaviour
     {
         InAction = true;
 
-        //�߷� �� �ݸ��� ������ ����� �ö��� ���ϹǷ�, �ϴ� �̰��� ��Ȱ��ȭ ���ִ� �ڵ�
+        //??? ?? ????? ?????? ????? ????? ??????, ??? ????? ?????? ????? ???
 
 
         animator.SetBool("mirrorAction", mirror);
-        //animator.CrossFadeInFixedTime(animName, 0.2f); // cross fade�� �ִϸ��̼��� �ް��ϰ� �ٲ�� ������� �ʰ� ������ �Լ��� ���� �ڿ����� �������, �ι��� �μ��� fade out �ð�
+        //animator.CrossFadeInFixedTime(animName, 0.2f); // cross fade?? ????????? ?????? ???? ??????? ??? ?????? ????? ???? ??????? ???????, ?��??? ?��??? fade out ?��?
         _photonView.RPC("CrossFadeAnimation", RpcTarget.All, animName, 0.2f); 
-        yield return null; //  �� �������� �ѱ����ν� ��ȯ
+        yield return null; //  ?? ???????? ??????��? ???
 
-        var animState = animator.GetNextAnimatorStateInfo(0); // 0�� ���̾��� ��ȯ������ ������.
+        var animState = animator.GetNextAnimatorStateInfo(0); // 0?? ??????? ????????? ??????.
         if(!animState.IsName(animName))
         {
-            Debug.LogError("�ִϸ��̼��� �������� �ʴ´�.");
+            Debug.LogError("????????? ???????? ??��?.");
         }
 
         float rotateStartTime = (matchParams != null) ? matchParams.startTime : 0f;
 
         float timer = 0f;
         while(timer <= animState.length)
-        { // �ִϸ��̼ǵ���
+        { // ??????????
             timer += Time.deltaTime;
             float normalizedTime = timer / animState.length;
             if(rotate && normalizedTime > rotateStartTime)
             {
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-            }//�ִϸ��̼� ���ൿ�� ������Ʈ
+            }//??????? ?????? ???????
 
             if (matchParams!=null)
                 MatchTarget(matchParams);
 
-            if(animator.IsInTransition(0) && timer> 1.0f) // Vault�������� �پ�Ѱ� ���߿� �����ϴ� ��ȯ���϶� �߷��� �������� ����. ���� ��ȯ���� break�ϸ� �ȵǴ� 0.5���� �������� ��������
+            if(animator.IsInTransition(0) && timer> 1.0f) // Vault???????? ????? ????? ??????? ???????? ????? ???????? ????. ???? ??????? break??? ???? 0.5???? ???????? ????????
                 break;
 
             yield return null;
         }
 
-        yield return new WaitForSeconds(postDelay); // �ִϸ��̼��� 2���� ����� ��� ��Ʈ�ѷ� �ѱ������ �� ������
+        yield return new WaitForSeconds(postDelay); // ????????? 2???? ????? ??? ?????? ???????? ?? ??????
 
        
         InAction = false;
@@ -177,7 +181,7 @@ public class PlayerController : MonoBehaviour
         if (animator.isMatchingTarget) return;
 
         animator.MatchTarget(mp.pos, transform.rotation, mp.bodyPart,
-            new MatchTargetWeightMask(mp.posWeight, 0),// vector�� xyz�� 1�ΰ͸� ��ġ�� match��Ų��. rotation�� match�Ƚ�ų�Ŵ� 0
+            new MatchTargetWeightMask(mp.posWeight, 0),// vector?? xyz?? 1???? ????? match?????. rotation?? match??????? 0
             mp.startTime, mp.targetTime);
     }
     public void SetControl(bool hasControl)
@@ -240,6 +244,11 @@ public class PlayerController : MonoBehaviour
         isHit = false;
     }
 
+    public void resetAttack()
+    {
+        if(Weapon != null)
+        Weapon.GetComponent<Collider>().enabled = false;
+    }
 }
 
 public class MatchTargetParams
